@@ -66,9 +66,7 @@ class Polynomial:
 
     @staticmethod
     def _divide(p1: Polynomial, p2: Polynomial) -> tuple[Polynomial, Polynomial]:
-        if len(p1.coefficients) < len(p2.coefficients):
-            return (Polynomial(), p1)
-        return (p1, p2)
+        raise NotImplementedError
 
     def __mod__(self, other: Polynomial) -> Polynomial:
         return self._divide(self, other)[1]

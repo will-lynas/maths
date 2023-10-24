@@ -16,20 +16,27 @@ class GcdResult:
     coefficients: tuple[int, int]
 
 def extended_gcd(a: int, b: int) -> GcdResult:
-    assert a > 0 and b > 0
-    r, old_r = sorted([a, b], reverse=True)
-    s = 0
-    old_s = 1
-    t = 1
-    old_t = 0
+    def inner(a: int, b: int) -> GcdResult:
+        assert a > 0 and b > 0 and a >= b
+        old_r, r = a, b
+        s = 0
+        old_s = 1
+        t = 1
+        old_t = 0
 
-    while r != 0:
-        q = old_r // r
-        old_r, r = r, old_r % r
-        old_s, s = s, old_s - q*s
-        old_t, t = t, old_t - q*t
+        while r != 0:
+            q = old_r // r
+            old_r, r = r, old_r % r
+            old_s, s = s, old_s - q*s
+            old_t, t = t, old_t - q*t
 
-    return GcdResult(gcd=old_r, coefficients=(old_s, old_t))
+        return GcdResult(gcd=old_r, coefficients=(old_s, old_t))
+    if a > b:
+        return inner(a, b)
+    else:
+        result = inner(b, a)
+        result.coefficients = (result.coefficients[1], result.coefficients[0])
+        return result
 
 if __name__ == "__main__":
     main()
