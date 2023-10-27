@@ -12,6 +12,10 @@ def test_polynomial_generation(test_input, expected):
 
 @pytest.mark.parametrize("test_input, expected", (
     ("2,3,4", "2x²+3x+4"), # Normal
+    ("1/2,3/4,2/3", "1/2x²+3/4x+2/3"), # Fractions
+    ("3/2,7/4,5/3", "3/2x²+7/4x+5/3"), # Improper fractions
+    ("5/10,0/4,2/6", "1/2x²+1/3"), # Unsimplified fractions
+    ("0.5,0.75,0.11", "1/2x²+3/4x+11/100"), # Floats are converted to fractions
     ("3,2,1", "3x²+2x+1"), # 1 as a constant
     ("3,2,0", "3x²+2x"), # 0 as a constant
     ("", "0"), # Empty list
@@ -27,6 +31,7 @@ def test_polynomial_representation_good(test_input, expected):
 @pytest.mark.parametrize("a, b, result", (
     ("1,2,3", "7,8,9", "8x²+10x+12"), # Normal
     ("1,2", "7,8,9,10", "7x³+8x²+10x+12"), # Different lengths
+    ("0", "0", "0"), # Zeros
     ))
 def test_polynomial_addition(a, b, result):
     poly_a = polynomial.Polynomial(a)
