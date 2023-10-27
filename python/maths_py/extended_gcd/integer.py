@@ -17,7 +17,7 @@ class GcdResult:
 
 def extended_gcd(a: int, b: int) -> GcdResult:
     def inner(a: int, b: int) -> GcdResult:
-        assert a > 0 and b > 0 and a >= b
+        assert a >= b > 0
         old_r, r = a, b
         s = 0
         old_s = 1
@@ -33,10 +33,9 @@ def extended_gcd(a: int, b: int) -> GcdResult:
         return GcdResult(gcd=old_r, coefficients=(old_s, old_t))
     if a > b:
         return inner(a, b)
-    else:
-        result = inner(b, a)
-        result.coefficients = (result.coefficients[1], result.coefficients[0])
-        return result
+    result = inner(b, a) # pylint: disable=arguments-out-of-order
+    result.coefficients = (result.coefficients[1], result.coefficients[0])
+    return result
 
 if __name__ == "__main__":
     main()

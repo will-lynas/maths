@@ -1,7 +1,7 @@
 import pytest
 from fractions import Fraction
 
-from maths_py.extended_gcd import integer, polynomial
+from maths_py.extended_gcd import polynomial
 
 @pytest.mark.parametrize("test_input, expected", (
     ("0,0,2", [Fraction(2)]), # Leading zeros should be stripped
