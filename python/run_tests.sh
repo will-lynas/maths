@@ -11,5 +11,5 @@ echo "Mypy passed"
 
 printf %"$COLUMNS"s |tr " " "-"
 echo "Running pylint"
-/usr/bin/env python -m pylint maths_py
+/usr/bin/env python -m pylint maths_py tests
 echo "Pylint passed"
