@@ -1,5 +1,6 @@
-import pytest
 from fractions import Fraction
+
+import pytest
 
 from maths_py.extended_gcd import polynomial
 
