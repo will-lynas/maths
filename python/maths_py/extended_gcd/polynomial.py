@@ -20,17 +20,15 @@ class Polynomial:
         if not coefficients:
             self.coefficients = []
             return
-        if isinstance(coefficients, str):
-            try:
-                coefficients = [float(el) for el in coefficients.split(",")]
-            except ValueError:
-                raise argparse.ArgumentTypeError
-        self.coefficients = [Fraction(c) for c in coefficients]
-        self._strip_zeros()
 
-    def _strip_zeros(self) -> None:
+        if isinstance(coefficients, str):
+            self.coefficients = [Fraction(el) for el in coefficients.split(",")]
+        else:
+            self.coefficients = [Fraction(el) for el in coefficients]
+
         while self.coefficients and self.coefficients[0] == 0:
             self.coefficients.pop(0)
+
 
     def __str__(self) -> str:
         if not self.coefficients:
@@ -55,6 +53,7 @@ class Polynomial:
             out.append(f"{coeff}{x_part}")
         return "+".join(reversed(out))
 
+
     def __add__(self, other: Polynomial) -> Polynomial:
         return Polynomial([
             sum(pair) for pair in
@@ -63,6 +62,7 @@ class Polynomial:
                 reversed(other.coefficients),
                 fillvalue = Fraction(0))))
             ])
+
 
     @staticmethod
     def _divide(p1: Polynomial, p2: Polynomial) -> tuple[Polynomial, Polynomial]:
